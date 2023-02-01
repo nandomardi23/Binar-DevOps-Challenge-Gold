@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  frontend-app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      - REACT_APP_BACKEND_URL=http:app-backend:8080
+    networks:
+      - backend-to-db
+
+networks:
+  backend-to-db:
+    driver: bridge

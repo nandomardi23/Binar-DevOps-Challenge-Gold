@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  postgres-db:
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=binar123
+      - POSTGRES_DB=binar
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgressql/data/
+
+    networks:
+      - backend-to-db
+
+  app-backend:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=binar123
+      - DATABASE_DATABASE=binar
+      - DATABASE_HOST=postgres-db
+      - DATABASE_PORT=5432
+      - BASE_URL_PORT=8080
+    networks:
+      - backend-to-db
+
+networks:
+  backend-to-db:
+    driver: bridge
+
+volumes:
+  dbdata:

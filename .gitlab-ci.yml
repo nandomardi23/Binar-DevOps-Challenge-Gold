@@ -1,0 +1,7 @@
+stages:
+  - test
+  - build-images
+  - deploy
+
+test-backend:
+  stage: test

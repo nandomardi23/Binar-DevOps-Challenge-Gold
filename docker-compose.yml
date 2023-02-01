@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend-app:
+    build: ./backend
+    container_name: express-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_USERNAME=binar
+      - DATABASE_PASSWORD=binar123
+      - DATABASE_DATABASE=crud_db
+      - DATABASE_HOST=
+      - DATABASE_PORT=5432
+      - BASE_URL_PORT=8080
+    networks:
+      - binar-challange
+
+  frontend-app:
+    build: ./frontend
+    container_name: react-frontend
+    ports:
+      - "8081:8081"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+    networks:
+      - binar-challange
+
+  webserver:
+    container_name: nginx-reverse-proxy
+    image: nginx:1.23.3-alpine
+
+networks:
+  binar-challange:
+    driver: bridge
