@@ -19,7 +19,7 @@ build-images:
 deploy-development:
   stage: deploy
   image: alpine
-  service:
+  services:
     - docker:dind
   before_script:
     - apk add openssh-client
