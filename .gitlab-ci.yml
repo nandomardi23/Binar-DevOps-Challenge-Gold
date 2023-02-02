@@ -10,7 +10,7 @@ build-images:
   before_script:
     - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
   script:
-    - docker build -t -f /backend/Dockefile nando2302/backend-express:$CI_COMMIT_SHORT_SHA
+    - docker build -f /backend/Dockefile -t nando2302/backend-express:$CI_COMMIT_SHORT_SHA
     - docker push nando2302/backend-express:$CI_COMMIT_SHORT_SHA
     - docker build  -f backend/Dockerfile -t nando2302/frontend-react:$CI_COMMIT_SHORT_SHA
     - docker push nando2302/frontend-react:$CI_COMMIT_SHORT_SHA
