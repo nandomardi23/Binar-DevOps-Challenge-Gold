@@ -26,10 +26,6 @@ services:
     networks:
       - binar-challange
 
-  webserver:
-    container_name: nginx-reverse-proxy
-    image: nginx:1.23.3-alpine
-
 networks:
   binar-challange:
     driver: bridge

@@ -11,8 +11,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./database/crud_db.sql:/docker-entrypoint-initdb.d/crud_db.sql
       - dbdata:/var/lib/postgresql/data/
+      - ./database/crud_db.sql:/docker-entrypoint-initdb.d/crud_db.sql
 
     networks:
       - backend-to-db

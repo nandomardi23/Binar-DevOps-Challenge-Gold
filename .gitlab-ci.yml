@@ -28,6 +28,8 @@ deploy-development:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
-    - scp -r ./docker-compose.development.yaml ./env
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_HOST_PROD ""
-deploy-production:
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_HOST_DEV "mkdir -p binar"
+    - scp -r StrictHostKeyChecking=no docker-compose-development.yml /database/crud_db.sql $HOST_USER@$IP_HOST_DEV:binar
+    # - scp -r StrictHostKeyChecking=no ./database/crud_db.sql
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_HOST_PROD
+# deploy-production:
