@@ -4,6 +4,7 @@ services:
   backend-app:
     image: nando2302/backend-express:$IMAGE_TAG
     container_name: express-backend
+    restart: always
     ports:
       - "8080:8080"
     environment:
