@@ -2,14 +2,14 @@ version: "3.8"
 
 services:
   backend-app:
-    build: ./backend
+    image: nando2302/backend-express:$IMAGE_TAG
     container_name: express-backend
     ports:
       - "8080:8080"
     environment:
-      - DATABASE_USERNAME=binar
-      - DATABASE_PASSWORD=binar123
-      - DATABASE_DATABASE=crud_db
+      - DATABASE_USERNAME=USERNAME_DB
+      - DATABASE_PASSWORD=PASSWORD_DB
+      - DATABASE_DATABASE=people
       - DATABASE_HOST=
       - DATABASE_PORT=5432
       - BASE_URL_PORT=8080
@@ -17,12 +17,12 @@ services:
       - binar-challange
 
   frontend-app:
-    build: ./frontend
+    image: nando2302/frontend-react:$IMAGE_TAG
     container_name: react-frontend
     ports:
       - "8081:8081"
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8080
+      - REACT_APP_BACKEND_URL=http://IP_ADDRESS:8080
     networks:
       - binar-challange
 
