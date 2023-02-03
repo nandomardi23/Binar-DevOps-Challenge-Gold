@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres-db:
-    image: postgres:15.1-alpine
+    image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -18,7 +18,8 @@ services:
       - backend-to-db
 
   app-backend:
-    build: ./backend
+    # build: ./backend
+    image: nando2302/backend-express:$IMAGE_TAG
     ports:
       - "8080:8080"
     restart: always
@@ -33,7 +34,8 @@ services:
       - backend-to-db
 
   frontend-app:
-    build: ./frontend
+    # build: ./frontend
+    image: nando2302/frontend-react:$IMAGE_TAG
     ports:
       - "8081:8081"
     environment:
