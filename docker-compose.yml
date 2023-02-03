@@ -23,7 +23,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - REACT_APP_BACKEND_URL=http://IP_ADDRESS:8080
+      - REACT_APP_BACKEND_URL=http://35.213.139.126:8080
     networks:
       - binar-challange
 
