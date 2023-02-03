@@ -32,7 +32,8 @@ deploy-development:
   script:
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir -p binar"
     - scp -o StrictHostKeyChecking=no docker-compose.yml database/crud_db.sql $HOST_USER@$IP_ADDRESS_DEV:binar
-    # - ssh -o StrictHostKeyChecking=no
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir - p binar/database/"
+    - scp -o StrictHostKeyChecking=no database/crud_db.sql $HOST_USER@$IP_ADDRESS_DEV:binar/database/
     - echo "sukses"
 
     # - scp -r StrictHostKeyChecking=no ./database/crud_db.sql
