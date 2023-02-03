@@ -30,10 +30,10 @@ deploy-development:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir -p binar"
-    - scp -o StrictHostKeyChecking=no docker-compose.yml $HOST_USER@$IP_ADDRESS_DEV:binar
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir - p binar/database/"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir  binar"
+    - scp -o StrictHostKeyChecking=no docker-compose-development.yml $HOST_USER@$IP_ADDRESS_DEV:binar
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV " cd ~/binar && mkdir database"
     - scp -o StrictHostKeyChecking=no database/crud_db.sql $HOST_USER@$IP_ADDRESS_DEV:binar/database/
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA composer up -d --force-recreate"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA -f docker-compose-development.yml composer up -d --force-recreate"
     - echo "sukses"
 # deploy-production:
