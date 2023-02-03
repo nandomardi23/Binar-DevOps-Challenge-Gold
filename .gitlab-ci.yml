@@ -54,6 +54,6 @@ deploy-production:
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar"
     - scp -o StrictHostKeyChecking=no docker-compose.yml $HOST_USER@$IP_ADDRESS_PROD:binar
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar/database"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD" cd ~/binar && PRIVATE_IP_POSTGRES=$PRIVATE_IP_POSTGRES PASSWORD_DB=$PASSWORD_DB IMAGE_TAG=$CI_COMMIT_SHORT_SHA IP_ADDRESS=IP_ADDRESS_PROD docker compose up -d --force-recreate"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD" cd ~/binar && IMAGE_TAG=$CI_COMMIT_SHORT_SHA IP_ADDRESS=IP_ADDRESS_PROD docker compose up -d --force-recreate"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
   when: manual
