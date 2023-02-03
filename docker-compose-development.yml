@@ -37,7 +37,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - REACT_APP_BACKEND_URL=http://$IP_ADDRESS_DEV:8080
+      - REACT_APP_BACKEND_URL=http://$IP_ADDRESS:8080
     networks:
       - backend-to-db
 
