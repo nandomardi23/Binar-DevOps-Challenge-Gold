@@ -18,7 +18,6 @@ services:
       - backend-to-db
 
   app-backend:
-    # build: ./backend
     image: nando2302/backend-express:$IMAGE_TAG
     ports:
       - "8080:8080"
@@ -34,12 +33,11 @@ services:
       - backend-to-db
 
   frontend-app:
-    # build: ./frontend
     image: nando2302/frontend-react:$IMAGE_TAG
     ports:
       - "8081:8081"
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8080
+      - REACT_APP_BACKEND_URL=http://35.213.188.59:8080
     networks:
       - backend-to-db
 
