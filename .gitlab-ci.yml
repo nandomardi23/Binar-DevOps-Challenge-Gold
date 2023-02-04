@@ -46,6 +46,7 @@ deploy-production:
     - docker:dind
   before_script:
     - apk add openssh-client
+    - apk add envsubst
     - eval $(ssh-agent -s)
     - echo "$PROD_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
@@ -54,6 +55,7 @@ deploy-production:
     - envsubst < docker-compose.yml > docker-compose.yml
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar"
     - scp -o StrictHostKeyChecking=no docker-compose.yml $HOST_USER@$IP_ADDRESS_PROD:binar
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar && cat docker-compose.yml"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar/database"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar && IMAGE_TAG=$CI_COMMIT_SHORT_SHA IP_ADDRESS=$IP_ADDRESS_PROD docker compose up -d --force-recreate"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
