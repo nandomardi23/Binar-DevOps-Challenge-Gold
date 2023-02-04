@@ -21,3 +21,4 @@ echo "install Nginx";
         mv ~/webserver/dev.conf /etc/nginx/conf.d;
         nginx  -t;
         sudo systemctl reload nginx;
+    fi
