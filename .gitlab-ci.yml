@@ -52,11 +52,11 @@ deploy-production:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
-    # - envsubst < docker-compose.yml > docker-compose.yml
+    - envsubst < .env.example > .env
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar"
-    - scp -o StrictHostKeyChecking=no docker-compose.yml $HOST_USER@$IP_ADDRESS_PROD:binar
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar && cat docker-compose.yml"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar/database"
+    - scp -o StrictHostKeyChecking=no .env docker-compose.yml $HOST_USER@$IP_ADDRESS_PROD:binar
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cat ~/binar/.env"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cat ~/binar/docker-compose.yml"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar &&
       IMAGE_TAG=$CI_COMMIT_SHORT_SHA
       IP_ADDRESS=$IP_ADDRESS_PROD
@@ -65,7 +65,6 @@ deploy-production:
       DB_NAME=$NAME_DB
       HOST_IP=$PRIVATE_IP_POSTGRES
       docker compose up -d --force-recreate"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cat ~/binar/docker-compose.yml"
     - echo "sukses"
     # - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
   when: manual
