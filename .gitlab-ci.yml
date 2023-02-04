@@ -31,8 +31,9 @@ deploy-development:
     - chmod 700 ~/.ssh
   script:
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir  binar"
-    - scp -o StrictHostKeyChecking=no docker-compose-development.yml $HOST_USER@$IP_ADDRESS_DEV:binar
-    - scp -o StrictHostKeyChecking=no nginx/dev.conf dev-nginx-ssl.sh $HOST_USER@$IP_ADDRESS_DEV:home/nando
+    - scp -o StrictHostKeyChecking=no docker-compose-development.yml nginx/dev.conf dev-nginx-ssl.sh $HOST_USER@$IP_ADDRESS_DEV:binar
+    # - scp -o StrictHostKeyChecking=no  $HOST_USER@$IP_ADDRESS_DEV:home/nando
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV " mkdir ~/webserver && mv ~/binar/dev.conf dev-nginx-ssl.sh"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV " cd ~/binar && mkdir database"
     - scp -o StrictHostKeyChecking=no database/crud_db.sql $HOST_USER@$IP_ADDRESS_DEV:binar/database/
     - scp -o StrictHostKeyChecking=no nginx/dev.conf $HOST_USER@$IP_ADDRESS_DEV:binar
