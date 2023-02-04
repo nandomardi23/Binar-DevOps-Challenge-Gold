@@ -60,11 +60,7 @@ deploy-production:
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar &&
       IMAGE_TAG=$CI_COMMIT_SHORT_SHA
       IP_ADDRESS=$IP_ADDRESS_PROD
-      USER_DB=$USERNAME_DB
-      PASS_DB=$PASSWORD_DB
-      DB_NAME=$NAME_DB
-      HOST_IP=$PRIVATE_IP_POSTGRES
       docker compose up -d --force-recreate"
     - echo "sukses"
-    # - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
   when: manual
