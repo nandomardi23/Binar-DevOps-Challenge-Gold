@@ -52,7 +52,7 @@ deploy-production:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
-    - envsubst < docker-compose.yml > docker-compose.yml
+    # - envsubst < docker-compose.yml > docker-compose.yml
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar"
     - scp -o StrictHostKeyChecking=no docker-compose.yml $HOST_USER@$IP_ADDRESS_PROD:binar
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar && cat docker-compose.yml"
