@@ -65,5 +65,5 @@ deploy-production:
       PRIVATE_IP_POSTGRES=$PRIVATE_IP_POSTGRES
       docker compose up -d --force-recreate"
     - echo "sukses"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
+    # - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
   when: manual
