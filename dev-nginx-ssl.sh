@@ -8,7 +8,7 @@ echo "install Nginx";
         echo "nginx sudah ada";
         nginx -t;
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
-        mv ~/binar/ssl-certificate /etc/nginx;
+        mv ~/ssl-certificate /etc/nginx;
         mv ~/webserver/dev.conf /etc/nginx/conf.d;
         nginx -t;
         sudo systemctl reload nginx;

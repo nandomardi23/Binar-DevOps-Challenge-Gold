@@ -8,8 +8,8 @@ echo "install Nginx";
         nginx -t;
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
         mv ~/binar/ssl-certificate /etc/nginx;
-        cp ~/binar/prod.conf /etc/nginx/conf.d;
-        nginx -t;
+        cp ~/webserver/prod.conf /etc/nginx/conf.d;
+        sudo nginx -t;
         sudo systemctl reload nginx;
     else
         echo "Nginx belum ada";
@@ -18,5 +18,6 @@ echo "install Nginx";
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
         mv ~/binar/ssl-certificate /etc/nginx;
         cp ~/binar/prod.conf /etc/nginx/conf.d;
-        nginx  -t;
+        sudo nginx  -t;
         sudo systemctl reload nginx;
+    fi
