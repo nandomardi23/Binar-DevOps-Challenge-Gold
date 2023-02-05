@@ -37,7 +37,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - REACT_APP_BACKEND_URL=https://dev-fernando.servercare.id/users
+      - REACT_APP_BACKEND_URL=http://35.213.188.59:8080
     networks:
       - backend-to-db
 
