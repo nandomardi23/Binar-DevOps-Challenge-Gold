@@ -11,7 +11,7 @@ echo "install Nginx";
         sudo mv ~/ssl-certificate/* /etc/nginx/ssl;
         sudo mv ~/webserver/prod.conf /etc/nginx/conf.d/;
         sudo nginx -t;
-        sudo systemctl reload nginx;
+        sudo systemctl restart nginx;
     else
         echo "Nginx belum ada";
         sudo apt install nginx -y;
@@ -21,5 +21,5 @@ echo "install Nginx";
         sudo mv  ~/ssl-certificate/* /etc/nginx/ssl/;
         sudo mv  ~/webserver/prod.conf /etc/nginx/conf.d/;
         sudo nginx  -t;
-        sudo systemctl reload nginx;
+        sudo systemctl restart nginx;
     fi
