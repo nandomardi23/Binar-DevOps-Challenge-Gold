@@ -30,6 +30,7 @@ deploy-development:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "rm -rf  binar/ webserver/"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir  binar webserver"
     - scp -o StrictHostKeyChecking=no docker-compose-development.yml  $HOST_USER@$IP_ADDRESS_DEV:binar
     - scp -o StrictHostKeyChecking=no nginx/dev.conf dev-nginx-ssl.sh $HOST_USER@$IP_ADDRESS_DEV:webserver
@@ -38,7 +39,6 @@ deploy-development:
     - scp -o StrictHostKeyChecking=no nginx/dev.conf $HOST_USER@$IP_ADDRESS_DEV:binar
     - echo "sukses"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA IP_ADDRESS=$IP_ADDRESS_DEV  docker compose -f docker-compose-development.yml up -d --force-recreate"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "rm -rf  binar/"
     - echo "sukses"
   after_script:
 
