@@ -36,11 +36,12 @@ deploy-development:
     - scp -o StrictHostKeyChecking=no nginx/dev.conf dev-nginx-ssl.sh $HOST_USER@$IP_ADDRESS_DEV:webserver
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV " cd ~/binar && mkdir database"
     - scp -o StrictHostKeyChecking=no database/crud_db.sql $HOST_USER@$IP_ADDRESS_DEV:binar/database/
-    - scp -o StrictHostKeyChecking=no nginx/dev.conf $HOST_USER@$IP_ADDRESS_DEV:binar
     - echo "sukses"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA docker compose -f docker-compose-development.yml up -d --force-recreate"
-    - echo "sukses"
-  after_script:
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA
+      docker compose -f docker-compose-development.yml up -d --force-recreate"
+    - echo "success docker compose already up"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "bash webserver/dev-nginx-ssl.sh"
+    - echo "running bash script to install nginx and conf ssl success"
 
 deploy-production:
   stage: deploy
