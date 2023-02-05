@@ -5,19 +5,21 @@ echo "install Nginx";
     if [ -d  /etc/nginx/  ]
     then
         echo "nginx sudah ada";
-        nginx -t;
+        sudo nginx -t;
+        sudo mkdir /etc/nginx/ssl;
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
-        mv ~/binar/ssl-certificate /etc/nginx;
-        cp ~/webserver/prod.conf /etc/nginx/conf.d;
+        mv ~/ssl-certificate/* /etc/nginx/ssl;
+        mv ~/webserver/prod.conf /etc/nginx/conf.d/;
         sudo nginx -t;
         sudo systemctl reload nginx;
     else
         echo "Nginx belum ada";
         sudo apt install nginx -y;
         sudo systemctl enable nginx;
+        sudo mkdir /etc/nginx/ssl;
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
-        mv ~/binar/ssl-certificate /etc/nginx;
-        cp ~/binar/prod.conf /etc/nginx/conf.d;
+        mv  ~/ssl-certificate/* /etc/nginx/ssl/;
+        mv  ~/webserver/prod.conf /etc/nginx/conf.d/;
         sudo nginx  -t;
         sudo systemctl reload nginx;
     fi

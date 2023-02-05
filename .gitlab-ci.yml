@@ -30,7 +30,7 @@ deploy-development:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "rm -rf  binar/ webserver/"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "rm -rf  binar/ webserver/ ssl-certificate/"
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "mkdir  binar webserver"
     - scp -o StrictHostKeyChecking=no docker-compose-development.yml  $HOST_USER@$IP_ADDRESS_DEV:binar
     - scp -o StrictHostKeyChecking=no nginx/dev.conf dev-nginx-ssl.sh $HOST_USER@$IP_ADDRESS_DEV:webserver
@@ -38,7 +38,7 @@ deploy-development:
     - scp -o StrictHostKeyChecking=no database/crud_db.sql $HOST_USER@$IP_ADDRESS_DEV:binar/database/
     - scp -o StrictHostKeyChecking=no nginx/dev.conf $HOST_USER@$IP_ADDRESS_DEV:binar
     - echo "sukses"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA IP_ADDRESS=$IP_ADDRESS_DEV  docker compose -f docker-compose-development.yml up -d --force-recreate"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_DEV "cd ~/binar/ && IMAGE_TAG=$CI_COMMIT_SHORT_SHA docker compose -f docker-compose-development.yml up -d --force-recreate"
     - echo "sukses"
   after_script:
 
@@ -55,15 +55,15 @@ deploy-production:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
   script:
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/ webserver/ ssl-certificate/"
     - envsubst < .env.example > .env
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "mkdir  binar webserver"
     - scp -o StrictHostKeyChecking=no .env docker-compose.yml $HOST_USER@$IP_ADDRESS_PROD:binar
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cat ~/binar/.env"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cat ~/binar/docker-compose.yml"
+    - scp -o StrictHostKeyChecking=no prod-nginx-ssl.sh nginx/prod.conf $HOST_USER@$IP_ADDRESS_PROD:webserver
     - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "cd ~/binar &&
       IMAGE_TAG=$CI_COMMIT_SHORT_SHA
-      IP_ADDRESS=$IP_ADDRESS_PROD
       docker compose up -d --force-recreate"
-    - echo "sukses"
-    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "rm -rf  binar/"
+    - echo "success docker compose already up"
+    - ssh -o StrictHostKeyChecking=no $HOST_USER@$IP_ADDRESS_PROD "bash webserver/prod-nginx-ssl.sh"
+    - echo "running bash script to install nginx and conf ssl success"
   when: manual

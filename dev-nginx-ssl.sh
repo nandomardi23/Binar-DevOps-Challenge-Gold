@@ -8,6 +8,7 @@ echo "install Nginx";
         echo "nginx sudah ada";
         sudo nginx -t;
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
+        sudo mkdir /etc/nginx/ssl
         sudo mv ssl-certificate/* /etc/nginx/ssl/;
         sudo mv webserver/dev.conf /etc/nginx/conf.d;
         sudo nginx -t;
@@ -19,6 +20,6 @@ echo "install Nginx";
         git clone https://gitlab.com/roboticpuppies/ssl-certificate.git;
         sudo mv ssl-certificate/* /etc/nginx/ssl/;
         sudo mv webserver/dev.conf /etc/nginx/conf.d;
-        nginx  -t;
+        sudo nginx  -t;
         sudo systemctl reload nginx;
     fi
