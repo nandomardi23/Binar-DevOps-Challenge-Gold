@@ -22,6 +22,7 @@ services:
   frontend-app:
     image: nando2302/frontend-react:$IMAGE_TAG
     container_name: react-frontend
+    restart: always
     ports:
       - "8081:8081"
     environment:
